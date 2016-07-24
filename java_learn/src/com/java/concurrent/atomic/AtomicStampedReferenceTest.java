@@ -1,10 +1,10 @@
-package com.java.atomic;
+package com.java.concurrent.atomic;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class AtomicReferenceTest {
+public class AtomicStampedReferenceTest {
 	
 	public static final AtomicReference<String> ATOMIC_REFERENCE = new AtomicReference<>("abc");
 	private static final Random RANDOM = new Random();
@@ -36,10 +36,21 @@ public class AtomicReferenceTest {
 		
 		Thread.sleep(200);
 		latch.countDown();
-		for(Thread thread : threads){
-			thread.join();
-		}
-		System.out.print(ATOMIC_REFERENCE.get());
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(RANDOM.nextInt()&300);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				while(!ATOMIC_REFERENCE.compareAndSet(ATOMIC_REFERENCE.get(), "abc"));
+				System.out.println("-----------------");
+			}
+		}).start();;
 	}
 
 }

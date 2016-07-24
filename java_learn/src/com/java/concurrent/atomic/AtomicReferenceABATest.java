@@ -1,4 +1,4 @@
-package com.java.atomic;
+package com.java.concurrent.atomic;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;

@@ -1,4 +1,4 @@
-package com.java.oom;
+package com.java.jvm.oom;
 
 import java.lang.reflect.Method;
 

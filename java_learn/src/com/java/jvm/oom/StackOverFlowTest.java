@@ -1,4 +1,4 @@
-package com.java.oom;
+package com.java.jvm.oom;
 
 public class StackOverFlowTest {
 	

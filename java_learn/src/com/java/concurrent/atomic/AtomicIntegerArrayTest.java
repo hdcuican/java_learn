@@ -1,4 +1,4 @@
-package com.java.atomic;
+package com.java.concurrent.atomic;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;

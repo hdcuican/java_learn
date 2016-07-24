@@ -1,4 +1,4 @@
-package com.java.atomic;
+package com.java.concurrent.atomic;
 
 import java.lang.reflect.Field;
 
