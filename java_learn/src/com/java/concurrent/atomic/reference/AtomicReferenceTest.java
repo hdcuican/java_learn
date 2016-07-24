@@ -14,7 +14,7 @@ public class AtomicReferenceTest {
 	private static final Random RANDOM = new Random();
 	
 	public static void main(String[] args) throws InterruptedException {
-		final CountDownLatch latch = new CountDownLatch(1);
+		final CountDownLatch startLatch = new CountDownLatch(1);
 		Thread[] threads = new Thread[100];
 		for(int i =0 ; i < threads.length; i++){
 			final int num = i;
@@ -25,7 +25,7 @@ public class AtomicReferenceTest {
 					String oldValue = ATOMIC_REFERENCE.get();
 					
 					try {
-						latch.await();
+						startLatch.await();
 						Thread.sleep(RANDOM.nextInt()&1000);
 						if(ATOMIC_REFERENCE.compareAndSet(oldValue, oldValue + num)) {
 							System.out.println("线程：" +num + "  对对象进行了修改");
@@ -39,7 +39,7 @@ public class AtomicReferenceTest {
 		}
 		
 		Thread.sleep(200);
-		latch.countDown();
+		startLatch.countDown();
 		for(Thread thread : threads){
 			thread.join();
 		}
