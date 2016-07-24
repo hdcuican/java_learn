@@ -1,10 +1,14 @@
-package com.java.concurrent.atomic;
+package com.java.concurrent.atomic.reference;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
-
-public class AtomicStampedReferenceTest {
+/**
+ * <p>Decsription: </p>
+ * @author  shadow
+ * @date  2016年7月22日
+ */
+public class AtomicReferenceTest {
 	
 	public static final AtomicReference<String> ATOMIC_REFERENCE = new AtomicReference<>("abc");
 	private static final Random RANDOM = new Random();
@@ -24,7 +28,7 @@ public class AtomicStampedReferenceTest {
 						latch.await();
 						Thread.sleep(RANDOM.nextInt()&1000);
 						if(ATOMIC_REFERENCE.compareAndSet(oldValue, oldValue + num)) {
-							System.out.println(num);
+							System.out.println("线程：" +num + "  对对象进行了修改");
 						}
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -36,21 +40,10 @@ public class AtomicStampedReferenceTest {
 		
 		Thread.sleep(200);
 		latch.countDown();
-		
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(RANDOM.nextInt()&300);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				while(!ATOMIC_REFERENCE.compareAndSet(ATOMIC_REFERENCE.get(), "abc"));
-				System.out.println("-----------------");
-			}
-		}).start();;
+		for(Thread thread : threads){
+			thread.join();
+		}
+		System.out.print("最后的结果为：" + ATOMIC_REFERENCE.get());
 	}
 
 }

@@ -1,5 +1,9 @@
 package com.java.jvm.oom;
-
+/**
+ * <p>Decsription: </p>
+ * @author  shadow
+ * @date  2016年7月22日
+ */
 public class StackOverFlowTest {
 	
 	private static int stack_deep_length = 0;

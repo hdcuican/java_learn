@@ -3,7 +3,11 @@ package com.java.concurrent.atomic;
 import java.lang.reflect.Field;
 
 import sun.misc.Unsafe;
-
+/**
+ * <p>Decsription: </p>
+ * @author  shadow
+ * @date  2016年7月22日
+ */
 public class UnSafeTest {
 	
 	int intV = 2;
@@ -19,7 +23,12 @@ public class UnSafeTest {
 		
 		
 	}
-	
+	/**
+	 * 反射获取Unsafe实例
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
 	public static Unsafe getUnSafe() throws IllegalArgumentException, IllegalAccessException {
 		Field field = Unsafe.class.getDeclaredFields()[0];
 		field.setAccessible(true);

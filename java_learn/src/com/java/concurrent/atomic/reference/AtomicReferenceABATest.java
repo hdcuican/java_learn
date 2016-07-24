@@ -1,12 +1,16 @@
-package com.java.concurrent.atomic;
+package com.java.concurrent.atomic.reference;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicStampedReference;
-
+import java.util.concurrent.atomic.AtomicReference;
+/**
+ * <p>Decsription:  模拟线程操作ABA问题</p>
+ * @author  shadow
+ * @date  2016年7月22日
+ */
 public class AtomicReferenceABATest {
 	
-	public static final AtomicStampedReference<String> ATOMIC_REFERENCE = new AtomicStampedReference<>("abc", 0);
+	public static final AtomicReference<String> ATOMIC_REFERENCE = new AtomicReference<>("abc");
 	private static final Random RANDOM = new Random();
 	
 	public static void main(String[] args) throws InterruptedException {
@@ -18,14 +22,13 @@ public class AtomicReferenceABATest {
 				
 				@Override
 				public void run() {
-					String oldValue = ATOMIC_REFERENCE.getReference();
-					int stamp = ATOMIC_REFERENCE.getStamp();
+					String oldValue = ATOMIC_REFERENCE.get();
 					
 					try {
 						latch.await();
 						Thread.sleep(RANDOM.nextInt()&1000);
-						if(ATOMIC_REFERENCE.compareAndSet(oldValue, oldValue + num, stamp, stamp+1)) {
-							System.out.println(num);
+						if(ATOMIC_REFERENCE.compareAndSet(oldValue, oldValue + num)) {
+							System.out.println("线程" + num + "对对象进行了修改");
 						}
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -45,12 +48,10 @@ public class AtomicReferenceABATest {
 				try {
 					Thread.sleep(RANDOM.nextInt()&300);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				int stamp = ATOMIC_REFERENCE.getStamp();
-				while(!ATOMIC_REFERENCE.compareAndSet(ATOMIC_REFERENCE.getReference(), "abc", stamp, stamp+1));
-				System.out.println("-----------------");
+				while(!ATOMIC_REFERENCE.compareAndSet(ATOMIC_REFERENCE.get(), "abc"));
+				System.out.println("已经改回来。。。");
 			}
 		}).start();;
 	}

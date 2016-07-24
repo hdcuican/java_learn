@@ -1,10 +1,14 @@
-package com.java.concurrent.atomic;
+package com.java.concurrent.atomic.array;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicIntegerArray;
-
+/**
+ * <p>Decsription: </p>
+ * @author  shadow
+ * @date  2016年7月22日
+ */
 public class AtomicIntegerArrayTest {
 	
 	private static AtomicIntegerArray integerArray = new AtomicIntegerArray(10);
