@@ -1,14 +1,18 @@
-package com.java.thread;
+package com.java.concurrent.locks;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * <p>Decsription: </p>
  * @author  shadow
- * @date  2016年7月24日
+ * @date  2016年7月25日
  */
-public class ThreadNotifyTest {
+public class LockConditionALLTest {
 	
-	private static Object object = new Object();
+private static ReentrantLock lock = new ReentrantLock();
+	
+	private static Condition condition = lock.newCondition();
 	
 	static class WaitThread extends Thread {
 		
@@ -20,18 +24,18 @@ public class ThreadNotifyTest {
 		 */
 		@Override
 		public void run() {
-			synchronized (object) {
-				String threadName = Thread.currentThread().getName();
-				System.out.println(System.currentTimeMillis() + "  " + threadName + "  start...");
 				try {
-					object.wait();
+					lock.lock();
+					String threadName = Thread.currentThread().getName();
+					System.out.println(System.currentTimeMillis() + "  " + threadName + "  start...");
+					condition.await();
 					Thread.sleep(2000);
 					System.out.println(System.currentTimeMillis() + "  " + threadName + "  end...");
-					object.notify();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+				}finally{
+					lock.unlock();
 				}
-			}
 		}
 	}
 	
@@ -45,16 +49,17 @@ public class ThreadNotifyTest {
 		 */
 		@Override
 		public void run() {
-			synchronized (object) {
-				String threadName = Thread.currentThread().getName();
-				System.out.println(System.currentTimeMillis() + "  " +threadName + "  start...");
 				try {
+					lock.lock();
+					String threadName = Thread.currentThread().getName();
+					System.out.println(System.currentTimeMillis() + "  " +threadName + "  start...");
 					Thread.sleep(3000);
 					System.out.println(System.currentTimeMillis() + "  " + threadName + "  end...");
-					object.notify();
+					condition.signalAll();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
+				}finally{
+					lock.unlock();
 			}
 		}
 	}
@@ -63,10 +68,14 @@ public class ThreadNotifyTest {
 		Thread notifyThread  = new NotifyThread("notify-threaad-1");
 		Thread waitThread1  = new WaitThread("wait-thread-1");
 		Thread waitThread2  = new WaitThread("wait-thread-2");
+		Thread waitThread3  = new WaitThread("wait-thread-3");
 		waitThread1.start();
 		waitThread2.start();
+		waitThread3.start();
 		Thread.sleep(1000);
 		notifyThread.start();
+		
 	}
+
 
 }

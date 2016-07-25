@@ -30,7 +30,7 @@ public class SuspendAndResumeTest {
 		Thread.sleep(200);
 		thread2.start();
 		thread1.resume();
-		//线程2挂起之后并没有被唤醒
+		//线程2 resume方法执行发生在suspend之前， 线程2无法被唤醒 产生死锁
 		thread2.resume();
 	}
 
