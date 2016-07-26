@@ -8,8 +8,8 @@ package com.java.thread;
 public class ThreadLocalTest {
 	
 	static class ResourceClass {
-		public static final ThreadLocal<String> THREAD_LOCAL_1 = new ThreadLocal<>();
-		public static final ThreadLocal<String> THREAD_LOCAL_2 = new ThreadLocal<>();
+		public static final ThreadLocal<String> THREAD_LOCAL_1 = new ThreadLocal<String>();
+		public static final ThreadLocal<String> THREAD_LOCAL_2 = new ThreadLocal<String>();
 	}
 	
 	static class A {

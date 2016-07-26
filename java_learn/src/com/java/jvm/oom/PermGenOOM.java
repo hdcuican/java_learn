@@ -11,7 +11,7 @@ public class PermGenOOM {
 	
 	public static void main(String[] args) {
 		int i = 0;
-		List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<String>();
 		for(;;) {
 			list.add(("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+i).intern());
 		}

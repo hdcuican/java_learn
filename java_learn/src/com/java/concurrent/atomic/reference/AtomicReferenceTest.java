@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class AtomicReferenceTest {
 	
-	public static final AtomicReference<String> ATOMIC_REFERENCE = new AtomicReference<>("abc");
+	public static final AtomicReference<String> ATOMIC_REFERENCE = new AtomicReference<String>("abc");
 	private static final Random RANDOM = new Random();
 	
 	public static void main(String[] args) throws InterruptedException {

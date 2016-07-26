@@ -44,7 +44,7 @@ public class CyclicBarrierTest {
 						cyclicBarrier.await();
 						System.out.println("我是线程" + Thread.currentThread().getName() + 
 								" 到家了");
-					} catch (InterruptedException | BrokenBarrierException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
