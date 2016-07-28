@@ -1,6 +1,8 @@
-package com.java.core.dynamic;
+package com.java.core.dynamic.jdk;
 
 import java.lang.reflect.Proxy;
+
+import com.java.core.dynamic.HelloInterface;
 
 /**
  * <p>Decsription: </p>

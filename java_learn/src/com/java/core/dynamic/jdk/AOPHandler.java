@@ -1,4 +1,4 @@
-package com.java.core.dynamic;
+package com.java.core.dynamic.jdk;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
