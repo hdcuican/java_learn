@@ -1,0 +1,9 @@
+option java_package = "com.netty.chapter07.protobuf";
+option java_outer_classname = "SubscribeReqProto";
+
+message SubscribeReq{
+	required int32 subReqID = 1;
+	required string userName = 2;
+	required string productName = 3;
+	required string addrsss = 4;
+}
