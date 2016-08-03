@@ -1,9 +1,10 @@
-package com.netty.chapter07.client;
+package com.netty.chapter08.client;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
 import com.netty.chapter07.pojo.SubscribeReq;
+import com.netty.chapter08.protobuf.SubscribeReqProto;
 
 public class SubReqClientHandler extends ChannelHandlerAdapter{
 	
@@ -22,13 +23,14 @@ public class SubReqClientHandler extends ChannelHandlerAdapter{
 		ctx.flush();
 	}
 	
-	private SubscribeReq subReq(int i) {
-		SubscribeReq req = new SubscribeReq();
-		req.setPhoneNumber("1111");
-		req.setProductName("aaaaaddd");
-		req.setSubReqID(i);
-		req.setUserName("cc");
-		return req;
+	private SubscribeReqProto.SubscribeReq subReq(int i) {
+		SubscribeReqProto.SubscribeReq.Builder builder =
+				SubscribeReqProto.SubscribeReq.newBuilder();
+		builder.setAddrsss("浙江杭州");
+		builder.setProductName("aaaaaddd");
+		builder.setSubReqID(i);
+		builder.setUserName("cc");
+		return builder.build();
 	}
 	
 	@Override

@@ -1,9 +1,9 @@
-package com.netty.chapter06.client;
+package com.netty.chapter09.client;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-import com.netty.chapter06.pojo.SubscribeReq;
+import com.netty.chapter07.pojo.SubscribeReq;
 
 public class SubReqClientHandler extends ChannelHandlerAdapter{
 	

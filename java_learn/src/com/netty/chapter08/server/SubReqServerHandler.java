@@ -1,12 +1,12 @@
-package com.netty.chapter06.server;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.netty.chapter06.pojo.SubscibeResp;
-import com.netty.chapter06.pojo.SubscribeReq;
+package com.netty.chapter08.server;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.netty.chapter08.protobuf.SubscribeReqProto;
+import com.netty.chapter08.protobuf.SubscribeRespProto;
 
 public class SubReqServerHandler extends ChannelHandlerAdapter{
 	
@@ -14,19 +14,20 @@ public class SubReqServerHandler extends ChannelHandlerAdapter{
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 			throws Exception {
-		SubscribeReq req = (SubscribeReq) msg;
+		SubscribeReqProto.SubscribeReq req = (SubscribeReqProto.SubscribeReq) msg;
 		if(StringUtils.equals("cc", req.getUserName())) {
 			System.out.println("Service accept client subscribe req : [" + req.toString() + "]");
 			ctx.writeAndFlush(resp(req.getSubReqID()));
 		}
 	}
 	
-	private SubscibeResp resp(int subReqID) {
-		SubscibeResp resp = new SubscibeResp();
-		resp.setSubReqID(subReqID);
-		resp.setRespCode(0);
-		resp.setDesc("sssssssssssss");
-		return resp;
+	private SubscribeRespProto.SubscribeResp resp(int subReqID) {
+		SubscribeRespProto.SubscribeResp.Builder builder = 
+				SubscribeRespProto.SubscribeResp.newBuilder();
+		builder.setSubReqID(subReqID);
+		builder.setDesc("2222222");
+		builder.setRespCode("0");
+		return builder.build();
 	}
 	
 	@Override

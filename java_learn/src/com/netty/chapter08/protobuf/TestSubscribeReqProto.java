@@ -1,4 +1,4 @@
-package com.netty.chapter07.protobuf;
+package com.netty.chapter08.protobuf;
 
 
 /**

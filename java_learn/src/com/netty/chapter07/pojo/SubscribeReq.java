@@ -1,4 +1,4 @@
-package com.netty.chapter06.pojo;
+package com.netty.chapter07.pojo;
 
 import java.io.Serializable;
 

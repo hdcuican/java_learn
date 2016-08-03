@@ -1,4 +1,4 @@
-package com.netty.chapter06.server;
+package com.netty.chapter09.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,15 +8,14 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
+import com.netty.chapter09.factory.MarshallingCodeCFactory;
+
 /**
  * 
- * <p>Description: netty服务端  使用ObjectEncoder和ObjectDecoder实现普通PoJO的序列化和反序列化
+ * <p>Description: netty服务端 Jboss 的 Marshalling 使用实现PoJO的序列化和反序列化
  * <p>
  * @author shadow
  * @date 2016年8月7日
@@ -52,10 +51,9 @@ public class SubReqServer {
 		@Override
 		protected void initChannel(SocketChannel ch) throws Exception {
 			//解码
-			ch.pipeline().addLast(new ObjectDecoder(1024*1024, ClassResolvers
-					.weakCachingConcurrentResolver(this.getClass().getClassLoader())));
+			ch.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
 			//编码
-			ch.pipeline().addLast(new ObjectEncoder());
+			ch.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
 			ch.pipeline().addLast(new SubReqServerHandler());
 		}
     }
