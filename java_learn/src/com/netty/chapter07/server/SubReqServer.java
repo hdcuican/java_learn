@@ -19,7 +19,7 @@ import com.netty.chapter07.protobuf.SubscribeReqProto;
 
 /**
  * 
- * <p>Description: netty服务端  使用ObjectEncoder和ObjectDecoder实现普通PoJO的序列化和反序列化
+ * <p>Description: netty服务端  使用Google的ProtoBuf实现PoJO的序列化和反序列化
  * <p>
  * @author shadow
  * @date 2016年8月7日
@@ -55,6 +55,10 @@ public class SubReqServer {
 		@Override
 		protected void initChannel(SocketChannel ch) throws Exception {
 			ch.pipeline().addLast(new ProtobufVarint32FrameDecoder());
+			/**
+			 * ProtobufDecoder仅仅负责解码， 它不支持读半包， 因此在ProtobufDecoder之前使用ProtobufVarint32FrameDecoder
+			 * 来处理半包
+			 */
 			ch.pipeline().addLast(new ProtobufDecoder(SubscribeReqProto.SubscribeReq.getDefaultInstance()));
 			ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
 			ch.pipeline().addLast(new ProtobufEncoder());
