@@ -36,6 +36,10 @@ public class SubReqClient {
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {
 					ch.pipeline().addLast(new ProtobufVarint32FrameDecoder());
+					/**
+					 * ProtobufDecoder仅仅负责解码， 它不支持读半包， 因此在ProtobufDecoder之前使用ProtobufVarint32FrameDecoder
+					 * 来处理半包
+					 */
 					ch.pipeline().addLast(new ProtobufDecoder(SubscribeRespProto.SubscribeResp.getDefaultInstance()));
 					ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
 					ch.pipeline().addLast(new ProtobufEncoder());
