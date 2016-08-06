@@ -11,5 +11,9 @@
 	<classpathentry kind="lib" path="lib/javassist.jar"/>
 	<classpathentry kind="lib" path="lib/netty-all-5.0.0.Alpha1.jar"/>
 	<classpathentry kind="lib" path="lib/protobuf-java-2.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-marshalling-1.3.0.CR9.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-marshalling-serial-1.3.0.CR9.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
